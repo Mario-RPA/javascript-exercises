@@ -1,22 +1,36 @@
-const findTheOldest = function(...person) {
-    return oldestPerson = person.reduce(
+const findTheOldest = function(person) {
+    person.reduce(
         (oldest, currentPerson) => {
-            if((currentPerson.yearOfDeath-currentPerson.yearOfBirth)
-            > (oldest.yearOfDeath-oldest.yearOfBirth)) {
-                return oldest = currentPerson;
+            if(!currentPerson.hasOwnProperty("yearOfDeath")) {
+                currentPerson.yearOfDeath = new Date().getFullYear();
+            } else if(!oldest.hasOwnProperty("yearOfDeath")) {
+                oldest.yearOfDeath = new Date().getFullYear();
             }
+            return currentPerson.yearOfDeath-currentPerson.yearOfBirth
+            < oldest.yearOfDeath-oldest.yearOfBirth ? oldest : currentPerson            
         });
+
 };
 
-findTheOldest({
+let oldest = findTheOldest({
     name: "Carly",
     yearOfBirth: 1942,
     yearOfDeath: 1970,
-  },
-  {
+    },
+    {
     name: "Ray",
-    yearOfBirth: 1900,
+    yearOfBirth: 1962,
     yearOfDeath: 2011,
-  });
-// Do not edit below this line
+    },
+    {
+    name: "Jane",
+    yearOfBirth: 1912,
+    yearOfDeath: 1941,
+    });
+
+// // Do not edit below this line
 module.exports = findTheOldest;
+
+
+//Dan's working code
+//module.exports = (people) => people.reduce((a, b) => a.yearOfDeath-a.yearOfBirth > b.yearOfDeath-b.yearOfBirth ? a : b)
